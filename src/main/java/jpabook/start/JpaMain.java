@@ -20,7 +20,8 @@ public class JpaMain {
 
 
             tx.begin(); //트랜잭션 시작
-            logic(em);  //비즈니스 로직
+            logic(em);//비즈니스 로직
+            depositLogic(em);
             tx.commit();//트랜잭션 커밋
 
         } catch (Exception e) {
@@ -57,6 +58,34 @@ public class JpaMain {
 
         //삭제
         em.remove(member);
+
+    }
+
+    public static void depositLogic(EntityManager em) {
+
+        String id = "0001";
+        Deposit deposit = new Deposit();
+        deposit.setId(id);
+        deposit.setAmount(10000);
+        deposit.setUsername("테스트");
+
+        //등록
+        em.persist(deposit);
+
+        //수정
+        deposit.setAmount(20000);
+
+        //한 건 조회
+        Deposit findDeposit = em.find(Deposit.class, id);
+        System.out.println("findDeposit=" + findDeposit.getUsername() +
+                            ", amount=" + findDeposit.getAmount());
+
+        //목록 조회
+        List<Deposit> deposits = em.createQuery("select d from Deposit d", Deposit.class).getResultList();
+        System.out.println("deposits.size=" + deposits.size());
+
+        //삭제
+        em.remove(deposits);
 
     }
 }
