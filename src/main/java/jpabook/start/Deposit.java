@@ -1,21 +1,21 @@
 package jpabook.start;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
- * 예금하는 테이블
- * Date: 13. 5. 24. Time: 오후 7:43
+
+ 예금하는 테이블
+ Date: 13. 5. 24. Time: 오후 7:43
  */
+
 @Entity
 @Table(name="JPA_DEPOSIT")
 public class Deposit {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    private String id;
+    private Long id;
 
     @Column(name = "NAME")
     private String username;
@@ -23,12 +23,11 @@ public class Deposit {
     @Column(name = "AMOUNT")
     private Integer amount;
 
-
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

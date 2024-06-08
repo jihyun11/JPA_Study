@@ -17,10 +17,7 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction(); //트랜잭션 기능 획득
 
         try {
-
-
             tx.begin(); //트랜잭션 시작
-            logic(em);//비즈니스 로직
             depositLogic(em);
             tx.commit();//트랜잭션 커밋
 
@@ -34,58 +31,30 @@ public class JpaMain {
         emf.close(); //엔티티 매니저 팩토리 종료
     }
 
-    public static void logic(EntityManager em) {
-
-        String id = "id1";
-        Member member = new Member();
-        member.setId(id);
-        member.setUsername("지한");
-        member.setAge(2);
-
-        //등록
-        em.persist(member);
-
-        //수정
-        member.setAge(20);
-
-        //한 건 조회
-        Member findMember = em.find(Member.class, id);
-        System.out.println("findMember=" + findMember.getUsername() + ", age=" + findMember.getAge());
-
-        //목록 조회
-        List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
-        System.out.println("members.size=" + members.size());
-
-        //삭제
-        em.remove(member);
-
-    }
-
     public static void depositLogic(EntityManager em) {
-
-        String id = "0001";
+        //0001 추가
         Deposit deposit = new Deposit();
-        deposit.setId(id);
         deposit.setAmount(10000);
         deposit.setUsername("테스트");
 
+        // 0002 추가
+        Deposit deposit2 = new Deposit();
+        deposit2.setAmount(15000);
+        deposit2.setUsername("테스트2");
+
+        // 0003 추가
+        Deposit deposit3 = new Deposit();
+        deposit3.setAmount(3000);
+        deposit3.setUsername("테스트3");
+
         //등록
         em.persist(deposit);
-
-        //수정
-        deposit.setAmount(20000);
-
-        //한 건 조회
-        Deposit findDeposit = em.find(Deposit.class, id);
-        System.out.println("findDeposit=" + findDeposit.getUsername() +
-                            ", amount=" + findDeposit.getAmount());
-
-        //목록 조회
-        List<Deposit> deposits = em.createQuery("select d from Deposit d", Deposit.class).getResultList();
-        System.out.println("deposits.size=" + deposits.size());
+        em.persist(deposit2);
+        em.persist(deposit3);
 
         //삭제
-        em.remove(deposits);
-
+        em.remove(deposit);
+        em.remove(deposit2);
+        em.remove(deposit3);
     }
 }
