@@ -11,20 +11,30 @@ import javax.persistence.*;
 public class Member {
 
     @Id
-    @Column(name = "ID")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MEMBER_ID")
+    private Long memberId;
 
     @Column(name = "NAME")
     private String username;
 
+    @Column(name = "TEAM_ID")
+    private Long teamId;
+
+
     private Integer age;
 
-    public String getId() {
-        return id;
+    public Long getMemberId() {
+        return memberId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+
+    public Long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Long teamId) {
+        this.teamId = teamId;
     }
 
     public String getUsername() {
